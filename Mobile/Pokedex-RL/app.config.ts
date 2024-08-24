@@ -35,7 +35,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "react-native-auth0",
       {
-        domain: process.env.EXPO_PUBLIC_AUTH0_DOMAIN,
+        domain: "dev-iptk7qf1vteodncy.us.auth0.com",
+      },
+    ],
+    [
+      "expo-dev-launcher",
+      {
+        launchMode: "most-recent",
       },
     ],
   ],

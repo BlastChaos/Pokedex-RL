@@ -4,8 +4,16 @@ import { HelloWave } from "@/Component/HelloWave";
 import ParallaxScrollView from "@/Component/ParallaxScrollView";
 import { ThemedText } from "@/Component/ThemedText";
 import { ThemedView } from "@/Component/ThemedView";
+import { useAuth0 } from "react-native-auth0";
+import { Header } from "@/Component/Header/Header";
 
 export default function HomeScreen() {
+  const { user, isLoading } = useAuth0();
+
+  if (!isLoading && !user) {
+    console.log("User not logged in");
+  }
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -16,6 +24,7 @@ export default function HomeScreen() {
         />
       }
     >
+      <Header />
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
@@ -27,7 +36,11 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
           to see changes. Press{" "}
           <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: "cmd + d", android: "cmd + m" })}
+            {Platform.select({
+              ios: "cmd + d",
+              android: "cmd + m",
+              web: "somwthing",
+            })}
           </ThemedText>{" "}
           to open developer tools.
         </ThemedText>
