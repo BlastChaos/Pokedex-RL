@@ -38,7 +38,6 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-  const {logInWithGoogle} = useAuth();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>

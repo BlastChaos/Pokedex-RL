@@ -16,8 +16,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   ios: {
     supportsTablet: true,
+    bundleIdentifier: "com.Jbs.PokedexRL",
   },
   android: {
+    package: "com.Jbs.PokedexRL",
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#ffffff",
@@ -28,7 +30,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     output: "static",
     favicon: "./assets/images/favicon.png",
   },
-  plugins: ["expo-router"],
+  plugins: [
+    "expo-router",
+    [
+      "react-native-auth0",
+      {
+        domain: process.env.EXPO_PUBLIC_AUTH0_DOMAIN,
+      },
+    ],
+  ],
   experiments: {
     typedRoutes: true,
   },
