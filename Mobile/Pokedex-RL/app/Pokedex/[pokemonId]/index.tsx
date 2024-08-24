@@ -1,4 +1,4 @@
-import { PokemonInfo } from "@/components/PokemonInfo/Pokemon";
+import { PokemonInfo } from "@/Component/PokemonInfo/PokemonInfo";
 import { useLocalSearchParams } from "expo-router";
 
 export const PokedexPokemon: React.FC = () => {

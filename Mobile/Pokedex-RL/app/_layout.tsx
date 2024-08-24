@@ -10,8 +10,15 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { RealmProvider } from "@realm/react";
 import { models } from "@/api/Model/models";
+
+import {
+  AppProvider,
+  UserProvider,
+  RealmProvider,
+  useAuth,
+} from "@realm/react";
+import { SyncConfiguration } from "realm";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -31,15 +38,20 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+  const {logInWithGoogle} = useAuth();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <RealmProvider schema={models}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </RealmProvider>
+      <AppProvider id={process.env.EXPO_PUBLIC_REALM_ID || ""}>
+        <UserProvider>
+          <RealmProvider schema={models}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </RealmProvider>
+        </UserProvider>
+      </AppProvider>
     </ThemeProvider>
   );
 }
