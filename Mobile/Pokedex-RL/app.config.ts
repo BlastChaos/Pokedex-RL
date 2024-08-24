@@ -2,17 +2,17 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "Pokedex-RL",
-  slug: "Pokedex-RL",
+  name: "Pokedex RL",
+  slug: "PokedexRL",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/images/icon.png",
+  icon: "./assets/images/logo.png",
   scheme: "myapp",
   userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/images/splash.png",
     resizeMode: "contain",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#E54D6A",
   },
   ios: {
     supportsTablet: true,
