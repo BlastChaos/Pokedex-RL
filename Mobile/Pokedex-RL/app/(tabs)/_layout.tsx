@@ -1,10 +1,13 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { TabBarIcon } from "@/Component/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-
+import { Header } from "@/Component/Header/Header";
+import IconSnap from "@/assets/images/IconSnap.svg";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Feather from "@expo/vector-icons/Feather";
+import AntDesign from "@expo/vector-icons/AntDesign";
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
@@ -12,30 +15,15 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
+        header: () => <Header />,
       }}
     >
-      <Tabs.Screen
-        name="camera"
-        options={{
-          title: "Camera",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "home" : "home-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
       <Tabs.Screen
         name="pokedex"
         options={{
           title: "Pokedex",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "home" : "home-outline"}
-              color={color}
-            />
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="catching-pokemon" size={size} color={color} />
           ),
         }}
       />
@@ -51,27 +39,36 @@ export default function TabLayout() {
           ),
         }}
       /> */}
+
       <Tabs.Screen
         name="leaderBoard"
         options={{
           title: "LeaderBoard",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "home" : "home-outline"}
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="clipboard" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="camera"
+        options={{
+          title: "",
+          tabBarIcon: ({ color, size }) => (
+            <IconSnap
+              scaleX={0.6}
+              scaleY={0.6}
               color={color}
+              className="mb-1"
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="profile"
         options={{
-          title: "profile",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
-              color={color}
-            />
+          title: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="user" size={size} color={color} />
           ),
         }}
       />
