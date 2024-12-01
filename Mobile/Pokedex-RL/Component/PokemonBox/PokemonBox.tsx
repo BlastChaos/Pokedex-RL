@@ -20,7 +20,8 @@ export const PokemonBox: React.FC<Props> = (props) => {
     <TouchableOpacity onPress={props.onPress}>
       <View className={"w-96 h-28 bg-white rounded-lg flex flex-row relative"}>
         <View className="flex flex-col pl-10  w-60 h-28 justify-center rounded-l-lg">
-z
+          <Text className="text-gray-500">{`N${pokemon.number}`}</Text>
+          <Text className="font-bold text-2xl">{pokemon.name}</Text>
           <TypeFlag type={pokemon.type} />
         </View>
         <View className="absolute justify-center items-center w-full">
