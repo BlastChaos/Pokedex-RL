@@ -19,6 +19,15 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="explore"
+        options={{
+          title: "Camera",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="camera-alt" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="pokedex"
         options={{
           title: "Pokedex",
@@ -27,28 +36,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      {/* <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "home" : "home-outline"}
-              color={color}
-            />
-          ),
-        }}
-      /> */}
 
-      <Tabs.Screen
-        name="leaderBoard"
-        options={{
-          title: "LeaderBoard",
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="clipboard" size={size} color={color} />
-          ),
-        }}
-      />
       <Tabs.Screen
         name="camera"
         options={{
@@ -60,6 +48,15 @@ export default function TabLayout() {
               color={color}
               className="mb-1"
             />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="leaderBoard"
+        options={{
+          title: "LeaderBoard",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="clipboard" size={size} color={color} />
           ),
         }}
       />
