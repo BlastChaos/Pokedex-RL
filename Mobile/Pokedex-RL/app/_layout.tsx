@@ -10,15 +10,12 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { models } from "@/api/Model/models";
 
-import {
-  AppProvider,
-  UserProvider,
-  RealmProvider,
-  useAuth,
-} from "@realm/react";
-import { SyncConfiguration } from "realm";
+import { AppProvider, UserProvider, RealmProvider } from "@realm/react";
+// import { SyncConfiguration } from "realm";
+import { Header } from "@/Component/Header/Header";
+import HomeScreen from ".";
+import { models } from "@/api/Model/models";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -38,19 +35,20 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+  console.log(process.env.EXPO_PUBLIC_REALM_ID);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <AppProvider id={process.env.EXPO_PUBLIC_REALM_ID || ""}>
-        <UserProvider>
-          <RealmProvider schema={models}>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </RealmProvider>
-        </UserProvider>
-      </AppProvider>
+      <RealmProvider schema={models}>
+        <Stack
+          screenOptions={{
+            header: () => <Header />,
+          }}
+        >
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </RealmProvider>
     </ThemeProvider>
   );
 }

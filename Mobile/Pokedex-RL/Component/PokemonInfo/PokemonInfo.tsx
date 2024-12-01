@@ -6,10 +6,10 @@ type Props = {
 
 export const PokemonInfo: React.FC<Props> = (props: Props) => {
   const { pokemonId } = props;
-  const pokemon = useObject(Pokemon, pokemonId);
-  if (!pokemon) {
-    return <div> pokemon not found!</div>;
-  }
+  // const pokemon = useObject(Pokemon, pokemonId);
+  // if (!pokemon) {
+  //   return <div> pokemon not found!</div>;
+  // }
   return (
     <>
       {/* <h1 className="font-medium text-4xl">Pokedex</h1>
