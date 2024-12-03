@@ -38,7 +38,7 @@ export default function RootLayout() {
   console.log(process.env.EXPO_PUBLIC_REALM_ID);
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <RealmProvider schema={models}>
         <Stack
           screenOptions={{

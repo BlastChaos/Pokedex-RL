@@ -47,7 +47,7 @@ export default function TabTwoScreen() {
               pokemon={item}
               onPress={() =>
                 router.push({
-                  pathname: "/Pokedex/[pokemonId]",
+                  pathname: "/pokemon/[pokemonId]",
                   params: { pokemonId: item.id },
                 })
               }
