@@ -1,10 +1,13 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { IconType } from "../IconType/IconType";
 import { TypeFlag } from "../TypeFlag/TypeFlag";
+import { LinearGradient } from "expo-linear-gradient";
+import { pokemonTypeColor } from "@/helper/pokemonTypeColor";
+import { Type } from "@/api/Model/Pokemon";
 
 type Pokemon = {
   id: string;
-  type: number;
+  type: Type;
   name: string;
   number: number;
   imageUrl: string;
@@ -16,9 +19,16 @@ type Props = {
 
 export const PokemonBox: React.FC<Props> = (props) => {
   const pokemon = props.pokemon;
+  const color = pokemonTypeColor[pokemon.type];
   return (
     <TouchableOpacity onPress={props.onPress}>
-      <View className={"w-96 h-28 bg-white rounded-lg flex flex-row relative"}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={[color, "#FFFFFF"]}
+        end={{ x: 0, y: 0 }}
+        start={{ x: 1, y: 0 }}
+        className="w-96 h-28 rounded-lg flex flex-row relative"
+      >
         <View className="flex flex-col pl-10  w-60 h-28 justify-center rounded-l-lg">
           <Text className="text-gray-500">{`N${pokemon.number}`}</Text>
           <Text className="font-bold text-2xl">{pokemon.name}</Text>
@@ -35,7 +45,7 @@ export const PokemonBox: React.FC<Props> = (props) => {
             }}
           />
         </View>
-      </View>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
