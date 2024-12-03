@@ -3,6 +3,7 @@ import { View, TextInput, FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { PokemonBox } from "@/Component/PokemonBox/PokemonBox";
+import { useRouter } from "expo-router";
 
 export default function TabTwoScreen() {
   const [search, setSearch] = useState<string>();
@@ -24,6 +25,9 @@ export default function TabTwoScreen() {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
     },
   ];
+
+  const router = useRouter();
+
   return (
     <View className="pt-24 flex flex-col items-center space-y-4">
       <View className="bg-white w-96 h-11 rounded-lg flex flex-row items-center px-2 space-x-1">
@@ -39,7 +43,15 @@ export default function TabTwoScreen() {
         data={pokemons}
         renderItem={({ item }) => (
           <View className="pb-6">
-            <PokemonBox pokemon={item} onPress={() => console.log("okok")} />
+            <PokemonBox
+              pokemon={item}
+              onPress={() =>
+                router.push({
+                  pathname: "/Pokedex/[pokemonId]",
+                  params: { pokemonId: item.id },
+                })
+              }
+            />
           </View>
         )}
         keyExtractor={(item) => item.id}

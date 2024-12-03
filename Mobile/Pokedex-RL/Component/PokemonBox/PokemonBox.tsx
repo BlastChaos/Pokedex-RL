@@ -35,7 +35,7 @@ export const PokemonBox: React.FC<Props> = (props) => {
           <TypeFlag type={pokemon.type} />
         </View>
         <View className="absolute justify-center items-center w-full">
-          <IconType type={pokemon.type} width={100} height={115} fill={"red"} />
+          <IconType type={pokemon.type} width={100} height={110} />
         </View>
         <View className="flex-1 rounded-r-lg items-center justify-center">
           <Image
