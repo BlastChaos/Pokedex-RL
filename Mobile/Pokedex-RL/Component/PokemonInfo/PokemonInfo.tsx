@@ -2,6 +2,8 @@ import { Pokemon } from "@/api/Model/Pokemon";
 import { useObject } from "@realm/react";
 import ParallaxScrollView from "../ParallaxScrollView";
 import { Image, Text, View } from "react-native";
+import React from "react";
+import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
 type Props = {
   pokemonId: string;
 };
@@ -22,6 +24,33 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
   };
 
+  const data: RadarData[] = [
+    {
+      label: "HP",
+      value: 100,
+    },
+    {
+      label: "Attack",
+      value: 50,
+    },
+    {
+      label: "Defense",
+      value: 75,
+    },
+    {
+      label: "Spe. Atk",
+      value: 25,
+    },
+    {
+      label: "Spe. Def",
+      value: 50,
+    },
+    {
+      label: "Speed",
+      value: 75,
+    },
+  ];
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
@@ -39,6 +68,9 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
           <Text className="font-bold text-5xl">{pokemon.name}</Text>
           <Text className="text-gray-500 text-xl">{`N${pokemon.number}`}</Text>
         </View>
+      </View>
+      <View className="flex justify-center items-center">
+        <RadarChart data={data} maxValue={200}  />
       </View>
     </ParallaxScrollView>
   );
