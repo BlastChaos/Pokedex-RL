@@ -26,6 +26,7 @@ export class Pokemon extends Realm.Object<Pokemon> {
   _id!: BSON.ObjectId;
   species!: string;
   name!: string;
+  foundBy!: string;
   weight!: number;
   height!: number;
   hp!: number;
@@ -35,8 +36,10 @@ export class Pokemon extends Realm.Object<Pokemon> {
   speDefense!: number;
   speed!: number;
   type!: Type;
-  description!: number;
+  description!: string;
+  number!: number;
   imageUrl!: string;
+  voiceUrl!: string;
   static schema: ObjectSchema = {
     name: "Pokemon",
     primaryKey: "_id",
@@ -52,7 +55,7 @@ export class Pokemon extends Realm.Object<Pokemon> {
       speAttack: { type: "int" },
       speDefense: { type: "int" },
       speed: { type: "int" },
-      description: { type: "int" },
+      description: { type: "string" },
     },
   };
 }
