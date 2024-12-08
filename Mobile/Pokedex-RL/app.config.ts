@@ -6,7 +6,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: "PokedexRL",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/images/logo.png",
+  icon: "./logo.ico",
   scheme: "myapp",
   userInterfaceStyle: "automatic",
   splash: {
@@ -33,15 +33,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     "expo-router",
     [
-      "react-native-auth0",
-      {
-        domain: "dev-iptk7qf1vteodncy.us.auth0.com",
-      },
-    ],
-    [
       "expo-dev-launcher",
       {
         launchMode: "most-recent",
+      },
+    ],
+    [
+      "expo-camera",
+      {
+        cameraPermission: "Allow $(PRODUCT_NAME) to access your camera",
+        microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone",
+        recordAudioAndroid: false,
       },
     ],
   ],

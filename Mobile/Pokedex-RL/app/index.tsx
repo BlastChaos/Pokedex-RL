@@ -7,14 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { useAuth0 } from "react-native-auth0";
-
 export default function HomeScreen() {
-  const { user, isLoading, authorizeWithEmail } = useAuth0();
+  // const { user, isLoading, authorizeWithEmail } = useAuth0();
   const router = useRouter();
-  if (!isLoading && !user) {
-    console.log("User not logged in");
-  }
+  // if (!isLoading && !user) {
+  //   console.log("User not logged in");
+  // }
 
   const onScanPress = () => {
     console.log("Camera pressed");
