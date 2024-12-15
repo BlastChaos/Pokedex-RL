@@ -1,5 +1,4 @@
 import { Pokemon } from "@/api/Model/Pokemon";
-import { useObject } from "@realm/react";
 import ParallaxScrollView from "../ParallaxScrollView";
 import { Image, Text, View } from "react-native";
 import React from "react";
@@ -16,7 +15,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
   // }
 
   const pokemon: Pokemon = {
-    _id: "1",
+    id: "1",
     attack: 49,
     defense: 49,
     height: 7,

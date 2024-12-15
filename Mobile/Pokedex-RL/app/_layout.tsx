@@ -11,8 +11,6 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
-import { AppProvider, UserProvider, RealmProvider } from "@realm/react";
-// import { SyncConfiguration } from "realm";
 import { Header } from "@/Component/Header/Header";
 import HomeScreen from ".";
 import { models } from "@/api/Model/models";
@@ -35,21 +33,18 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-  console.log(process.env.EXPO_PUBLIC_REALM_ID);
 
   return (
     <ThemeProvider value={DefaultTheme}>
-      <RealmProvider schema={models}>
-        <Stack
-          screenOptions={{
-            header: () => <Header />,
-          }}
-        >
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-          <Stack.Screen name="pokemon/[pokemonId]" />
-        </Stack>
-      </RealmProvider>
+      <Stack
+        screenOptions={{
+          header: () => <Header />,
+        }}
+      >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="pokemon/[pokemonId]" />
+      </Stack>
     </ThemeProvider>
   );
 }

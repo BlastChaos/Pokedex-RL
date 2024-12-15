@@ -1,6 +1,3 @@
-import { Realm } from "@realm/react";
-import { BSON, ObjectSchema } from "realm";
-
 export enum Type {
   Normal = 0,
   Fire = 1,
@@ -22,8 +19,8 @@ export enum Type {
   Fairy = 17,
 }
 
-export class Pokemon extends Realm.Object<Pokemon> {
-  _id!: BSON.ObjectId;
+export class Pokemon {
+  id!: string;
   species!: string;
   name!: string;
   foundBy!: string;
@@ -40,22 +37,4 @@ export class Pokemon extends Realm.Object<Pokemon> {
   number!: number;
   imageUrl!: string;
   voiceUrl!: string;
-  static schema: ObjectSchema = {
-    name: "Pokemon",
-    primaryKey: "_id",
-    properties: {
-      _id: "objectId",
-      species: { type: "string" },
-      name: { type: "string" },
-      weight: { type: "string" },
-      height: { type: "string" },
-      hp: { type: "int" },
-      attack: { type: "int" },
-      defense: { type: "int" },
-      speAttack: { type: "int" },
-      speDefense: { type: "int" },
-      speed: { type: "int" },
-      description: { type: "string" },
-    },
-  };
 }
