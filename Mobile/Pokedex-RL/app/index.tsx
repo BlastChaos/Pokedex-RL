@@ -1,11 +1,6 @@
-import { Image } from "expo-image";
+import { ExpoImage } from "@/Component/ExpoImage/ExpoImage";
 import { useRouter } from "expo-router";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { View, ImageBackground, TouchableOpacity } from "react-native";
 
 export default function HomeScreen() {
   // const { user, isLoading, authorizeWithEmail } = useAuth0();
@@ -27,20 +22,20 @@ export default function HomeScreen() {
       resizeMode="cover"
       className="flex flex-col flex-1 items-center"
     >
-      <Image
+      <ExpoImage
         className="w-64 h-64 flex mt-24"
         source={require("@/assets/images/login-image.png")}
       />
       <View className="flex flex-col space-y-7 mt-32">
         <TouchableOpacity onPress={onLoginPress}>
-          <Image
+          <ExpoImage
             source={require("@/assets/images/button-login.png")}
             className="w-64 h-12 flex"
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onScanPress}>
-          <Image
+          <ExpoImage
             source={require("@/assets/images/button-scan.png")}
             className="w-64 h-12 flex"
           />
