@@ -1,12 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform } from "react-native";
+import { StyleSheet, Image, Platform, View } from "react-native";
 
-import { Collapsible } from "@/Component/Collapsible";
-import { ExternalLink } from "@/Component/ExternalLink";
-import ParallaxScrollView from "@/Component/ParallaxScrollView";
+
 import { ThemedText } from "@/Component/ThemedText";
-import { ThemedView } from "@/Component/ThemedView";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Camera() {
   const [status] = useCameraPermissions({
@@ -16,17 +14,19 @@ export default function Camera() {
 
   if (!status?.granted) {
     return (
-      <ThemedView>
+      <SafeAreaView>
         <ThemedText>
           Camera permission is required to use this feature.
         </ThemedText>
-      </ThemedView>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View>
-      <CameraView ></CameraView>
-    </View>
+    <SafeAreaView>
+      <View>
+        <CameraView></CameraView>
+      </View>
+    </SafeAreaView>
   );
 }
