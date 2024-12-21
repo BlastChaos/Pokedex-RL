@@ -104,7 +104,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
     >
       <View className="px-10">
         <View className={"pt-8"}>
-          <View className="flex flex-row space-x-3 items-center ">
+          <View className="flex flex-row gap-x-3 items-center ">
             <Text className="font-bold text-5xl">{pokemon.name}</Text>
             <Text className="text-gray-500 text-sm">{`The ${pokemon.species}`}</Text>
           </View>

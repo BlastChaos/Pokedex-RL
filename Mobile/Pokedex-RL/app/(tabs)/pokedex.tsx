@@ -29,8 +29,8 @@ export default function TabTwoScreen() {
   const router = useRouter();
 
   return (
-    <View className="pt-24 flex flex-col items-center space-y-4">
-      <View className="bg-white w-96 h-11 rounded-lg flex flex-row items-center px-2 space-x-1">
+    <View className="pt-24 flex flex-col items-center gap-y-4">
+      <View className="bg-white w-108 h-14 rounded-lg flex flex-row items-center px-2 gap-x-1">
         <MaterialIcons name="search" size={27} />
         <TextInput
           onChangeText={setSearch}

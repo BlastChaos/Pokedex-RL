@@ -6,7 +6,6 @@ cssInterop(Image, { className: "style" });
 export const ExpoImage: React.FC<ImageProps> = ({ source, ...props }) => {
   const [assets, error] = useAssets([source]);
 
-  console.log("assets", assets, error);
   const asset = assets?.[0];
 
   return asset ? <Image source={asset} {...props} /> : null;

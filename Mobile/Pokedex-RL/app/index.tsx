@@ -11,7 +11,7 @@ export default function HomeScreen() {
 
   const onScanPress = () => {
     console.log("Camera pressed");
-    router.push("/camera");
+    router.push("/pokedex");
   };
 
   const onLoginPress = () => {};
@@ -26,18 +26,18 @@ export default function HomeScreen() {
         className="w-64 h-64 flex mt-24"
         source={require("@/assets/images/login-image.png")}
       />
-      <View className="flex flex-col space-y-7 mt-32">
+      <View className="flex flex-col gap-y-10 mt-32">
         <TouchableOpacity onPress={onLoginPress}>
           <ExpoImage
             source={require("@/assets/images/button-login.png")}
-            className="w-64 h-12 flex"
+            className="w-96 h-16 flex"
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onScanPress}>
           <ExpoImage
             source={require("@/assets/images/button-scan.png")}
-            className="w-64 h-12 flex"
+            className="w-96 h-16 flex"
           />
         </TouchableOpacity>
       </View>

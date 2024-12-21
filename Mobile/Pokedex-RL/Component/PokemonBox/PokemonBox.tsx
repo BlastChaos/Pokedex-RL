@@ -20,6 +20,7 @@ type Props = {
 export const PokemonBox: React.FC<Props> = (props) => {
   const pokemon = props.pokemon;
   const color = pokemonTypeColor[pokemon.type];
+
   return (
     <TouchableOpacity onPress={props.onPress}>
       <LinearGradient
@@ -27,7 +28,8 @@ export const PokemonBox: React.FC<Props> = (props) => {
         colors={[color, "#FFFFFF"]}
         end={{ x: 0, y: 0 }}
         start={{ x: 1, y: 0 }}
-        className="w-96 h-28 rounded-lg flex flex-row relative"
+        style={{ borderRadius: 15 }}
+        className="w-108 h-32 flex flex-row relative"
       >
         <View className="flex flex-col pl-10  w-60 h-28 justify-center rounded-l-lg">
           <Text className="text-gray-500">{`N${pokemon.number}`}</Text>
