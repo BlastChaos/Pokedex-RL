@@ -41,7 +41,7 @@ export const PokemonBox: React.FC<Props> = (props) => {
         </View>
         <View className="flex-1 rounded-r-lg items-center justify-center">
           <Image
-            className="w-28 h-24"
+            className="w-36 ml-5 h-28"
             source={{
               uri: pokemon.imageUrl,
             }}
