@@ -1,4 +1,3 @@
-import { ExpoImage } from "@/Component/ExpoImage/ExpoImage";
 import { useRouter } from "expo-router";
 import { View, ImageBackground, TouchableOpacity, Image } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
