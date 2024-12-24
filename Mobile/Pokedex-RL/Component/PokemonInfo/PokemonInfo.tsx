@@ -1,8 +1,9 @@
 import { Pokemon } from "@/api/Model/Pokemon";
 import ParallaxScrollView from "../ParallaxScrollView";
-import { Image, Text, View } from "react-native";
+import { Image, SafeAreaView, Text, View, ScrollView } from "react-native";
 import React from "react";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 type Props = {
   pokemonId: string;
 };
@@ -91,62 +92,60 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
   ];
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-      headerImage={
+    <ScrollView>
+      <View className="flex flex-col">
         <Image
-          className="w-full h-full"
           source={{
-            uri: pokemon.imageUrl,
+            uri: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
           }}
+          className="h-80 w-screen"
         />
-      }
-    >
-      <View className="px-10">
-        <View className={"pt-8"}>
-          <View className="flex flex-row gap-x-3 items-center ">
-            <Text className="font-bold text-5xl">{pokemon.name}</Text>
-            <Text className="text-gray-500 text-sm">{`The ${pokemon.species}`}</Text>
+        <View className="px-10">
+          <View className={"pt-8"}>
+            <View className="flex flex-row gap-x-3 items-center ">
+              <Text className="font-bold text-5xl">{pokemon.name}</Text>
+              <Text className="text-gray-500 text-sm">{`The ${pokemon.species}`}</Text>
+            </View>
+          </View>
+
+          <View className="bg-gray-400 rounded-md w-60 mt-3">
+            <Text>{"Random voice"}</Text>
+          </View>
+          <View className="flex justify-center items-center pt-5">
+            <Text>{pokemon.description}</Text>
+          </View>
+          <Text className="pt-6">{`Found by: ${pokemon.foundBy}`}</Text>
+
+          <View className="flex justify-center items-center pl-20">
+            <BarChart
+              initialSpacing={0}
+              endSpacing={0}
+              horizontal
+              barWidth={30}
+              roundedTop
+              disablePress
+              width={370}
+              height={400}
+              roundedBottom
+              maxValue={maxValue}
+              hideAxesAndRules
+              spacing={23}
+              hideRules
+              barMarginBottom={15}
+              data={data}
+              isAnimated
+              yAxisThickness={0}
+              xAxisThickness={0}
+              // labelsExtraHeight={50} // Add padding between the label and the bars
+              // labelTextStyle={{ paddingRight: 10 }} // Adjust padding as needed
+            />
+          </View>
+          <View className="flex justify-center items-center">
+            <Text>{"ok"}</Text>
           </View>
         </View>
-
-        <View className="bg-gray-400 rounded-md w-60 mt-3">
-          <Text>{"Random voice"}</Text>
-        </View>
-        <View className="flex justify-center items-center pt-5">
-          <Text>{pokemon.description}</Text>
-        </View>
-        <Text className="pt-6">{`Found by: ${pokemon.foundBy}`}</Text>
-
-        <View className="flex justify-center items-center pl-20">
-          <BarChart
-            initialSpacing={0}
-            endSpacing={0}
-            horizontal
-            barWidth={30}
-            roundedTop
-            disablePress
-            width={370}
-            height={400}
-            roundedBottom
-            maxValue={maxValue}
-            hideAxesAndRules
-            spacing={23}
-            hideRules
-            barMarginBottom={15}
-            data={data}
-            isAnimated
-            yAxisThickness={0}
-            xAxisThickness={0}
-            // labelsExtraHeight={50} // Add padding between the label and the bars
-            // labelTextStyle={{ paddingRight: 10 }} // Adjust padding as needed
-          />
-        </View>
-        <View className="flex justify-center items-center">
-          <Text>{"ok"}</Text>
-        </View>
       </View>
-    </ParallaxScrollView>
+    </ScrollView>
   );
 
   // return (

@@ -8,5 +8,7 @@ export const ExpoImage: React.FC<ImageProps> = ({ source, ...props }) => {
 
   const asset = assets?.[0];
 
+  console.log("error", error);
+
   return asset ? <Image source={asset} {...props} /> : null;
 };

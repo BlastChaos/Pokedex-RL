@@ -1,9 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { Header } from "@/Component/Header/Header";
 import IconSnap from "@/assets/images/IconSnap.svg";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Feather from "@expo/vector-icons/Feather";
@@ -14,7 +12,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        header: () => <Header />,
+        header: () => null,
       }}
     >
       <Tabs.Screen

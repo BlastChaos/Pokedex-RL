@@ -1,6 +1,6 @@
 import { ExpoImage } from "@/Component/ExpoImage/ExpoImage";
 import { useRouter } from "expo-router";
-import { View, ImageBackground, TouchableOpacity } from "react-native";
+import { View, ImageBackground, TouchableOpacity, Image } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
@@ -26,20 +26,20 @@ export default function HomeScreen() {
           className="flex-1"
         >
           <View className="flex flex-col items-center mt-24">
-            <ExpoImage
+            <Image
               className="w-64 h-64 flex mt-24"
               source={require("@/assets/images/login-image.png")}
             />
             <View className="flex flex-col gap-y-10 mt-32">
               <TouchableOpacity onPress={onLoginPress}>
-                <ExpoImage
+                <Image
                   source={require("@/assets/images/button-login.png")}
                   className="w-96 h-16 flex"
                 />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={onScanPress}>
-                <ExpoImage
+                <Image
                   source={require("@/assets/images/button-scan.png")}
                   className="w-96 h-16 flex"
                 />
