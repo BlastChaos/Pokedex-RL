@@ -36,7 +36,7 @@ export default function RootLayout() {
           header: () => <Header />,
         }}
       >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" />
         <Stack.Screen name="+not-found" />
         <Stack.Screen name="pokemon/[pokemonId]" />
       </Stack>

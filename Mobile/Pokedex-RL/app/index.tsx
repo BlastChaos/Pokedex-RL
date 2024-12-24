@@ -1,6 +1,7 @@
 import { ExpoImage } from "@/Component/ExpoImage/ExpoImage";
 import { useRouter } from "expo-router";
 import { View, ImageBackground, TouchableOpacity } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   // const { user, isLoading, authorizeWithEmail } = useAuth0();
@@ -17,30 +18,36 @@ export default function HomeScreen() {
   const onLoginPress = () => {};
 
   return (
-    <ImageBackground
-      source={require("@/assets/images/login-bg.jpg")}
-      resizeMode="cover"
-      className="flex flex-col flex-1 items-center"
-    >
-      <ExpoImage
-        className="w-64 h-64 flex mt-24"
-        source={require("@/assets/images/login-image.png")}
-      />
-      <View className="flex flex-col gap-y-10 mt-32">
-        <TouchableOpacity onPress={onLoginPress}>
-          <ExpoImage
-            source={require("@/assets/images/button-login.png")}
-            className="w-96 h-16 flex"
-          />
-        </TouchableOpacity>
+    <SafeAreaProvider>
+      <SafeAreaView className="flex-1">
+        <ImageBackground
+          source={require("@/assets/images/login-bg.jpg")}
+          resizeMode="cover"
+          className="flex-1"
+        >
+          <View className="flex flex-col items-center mt-24">
+            <ExpoImage
+              className="w-64 h-64 flex mt-24"
+              source={require("@/assets/images/login-image.png")}
+            />
+            <View className="flex flex-col gap-y-10 mt-32">
+              <TouchableOpacity onPress={onLoginPress}>
+                <ExpoImage
+                  source={require("@/assets/images/button-login.png")}
+                  className="w-96 h-16 flex"
+                />
+              </TouchableOpacity>
 
-        <TouchableOpacity onPress={onScanPress}>
-          <ExpoImage
-            source={require("@/assets/images/button-scan.png")}
-            className="w-96 h-16 flex"
-          />
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+              <TouchableOpacity onPress={onScanPress}>
+                <ExpoImage
+                  source={require("@/assets/images/button-scan.png")}
+                  className="w-96 h-16 flex"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
