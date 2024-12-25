@@ -10,6 +10,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
+import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
 type Props = {
   pokemonId: string;
 };
@@ -45,55 +46,30 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
 
   const maxValue = 200;
 
-  const data: barDataItem[] = [
+  const data: RadarData[] = [
     {
       label: "HP",
       value: pokemon.hp,
-      frontColor: `hsl(${(pokemon.hp / maxValue) * 120}, 100%, 50%)`,
-      topLabelComponent: () => (
-        <Text className="font-bold text-base">{pokemon.hp}</Text>
-      ),
     },
     {
       label: "Attack",
       value: pokemon.attack,
-      frontColor: `hsl(${(pokemon.attack / maxValue) * 120}, 100%, 50%)`,
-
-      topLabelComponent: () => (
-        <Text className="font-bold text-base">{pokemon.attack}</Text>
-      ),
     },
     {
       label: "Defense",
       value: pokemon.defense,
-      frontColor: `hsl(${(pokemon.defense / maxValue) * 120}, 100%, 50%)`,
-      topLabelComponent: () => (
-        <Text className="font-bold text-base">{pokemon.defense}</Text>
-      ),
     },
     {
       label: "Spe. Atk",
       value: pokemon.speAttack,
-      frontColor: `hsl(${(pokemon.speAttack / maxValue) * 120}, 100%, 50%)`,
-      topLabelComponent: () => (
-        <Text className="font-bold text-base">{pokemon.speAttack}</Text>
-      ),
     },
     {
       label: "Spe. Def",
       value: pokemon.speDefense,
-      frontColor: `hsl(${(pokemon.speDefense / maxValue) * 120}, 100%, 50%)`,
-      topLabelComponent: () => (
-        <Text className="font-bold text-base">{pokemon.speDefense}</Text>
-      ),
     },
     {
       label: "Speed",
       value: pokemon.speed,
-      frontColor: `hsl(${(pokemon.speed / maxValue) * 120}, 100%, 50%)`,
-      topLabelComponent: () => (
-        <Text className="font-bold  text-base">{pokemon.speed}</Text>
-      ),
     },
   ];
 
@@ -189,30 +165,27 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
             />
           </View>
 
-          <View className="flex justify-center items-center pl-20">
-            <BarChart
-              initialSpacing={0}
-              endSpacing={0}
-              horizontal
-              barWidth={30}
-              roundedTop
-              disablePress
-              width={370}
-              height={400}
-              roundedBottom
-              maxValue={maxValue}
-              hideAxesAndRules
-              spacing={23}
-              hideRules
-              barMarginBottom={15}
+          <View className="mt-5 border border-black rounded-3xl bg-slate-50">
+            <RadarChart
               data={data}
-              isAnimated
-              yAxisThickness={0}
-              xAxisThickness={0}
-              // labelsExtraHeight={50} // Add padding between the label and the bars
-              // labelTextStyle={{ paddingRight: 10 }} // Adjust padding as needed
+              maxValue={maxValue}
+              gradientColor={{
+                startColor: "#CC0000",
+                endColor: "#00CB62",
+                count: 5,
+              }}
+              stroke={[]}
+              strokeWidth={[0.5, 0.5, 0.5, 0.5, 1]}
+              strokeOpacity={[1, 1, 1, 1, 0.13]}
+              labelColor="#433D3A"
+              dataFillColor="#ebd638"
+              dataFillOpacity={0.8}
+              dataStroke="#ebd638"
+              dataStrokeWidth={2}
+              isCircle
             />
           </View>
+
           <View className="flex justify-center items-center">
             <Text>{"ok"}</Text>
           </View>
