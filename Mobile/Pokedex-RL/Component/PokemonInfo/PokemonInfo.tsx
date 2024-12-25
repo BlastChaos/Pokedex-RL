@@ -91,7 +91,6 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
         {
           isPreferred: true,
           text: "No",
-          onPress: () => {},
         },
 
         {
