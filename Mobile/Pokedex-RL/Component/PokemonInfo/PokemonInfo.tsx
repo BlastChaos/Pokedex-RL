@@ -1,9 +1,15 @@
 import { Pokemon } from "@/api/Model/Pokemon";
-import ParallaxScrollView from "../ParallaxScrollView";
-import { Image, SafeAreaView, Text, View, ScrollView } from "react-native";
+import { Image, Text, View, ScrollView } from "react-native";
 import React from "react";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TypeFlag } from "../TypeFlag/TypeFlag";
+import { InfoRow } from "../InfoRow/InfoRow";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Feather from "@expo/vector-icons/Feather";
 type Props = {
   pokemonId: string;
 };
@@ -100,21 +106,88 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
           }}
           className="h-80 w-screen"
         />
-        <View className="px-10">
+        <View className="px-9">
           <View className={"pt-8"}>
-            <View className="flex flex-row gap-x-3 items-center ">
+            <View className="flex flex-col gap-y-2 justify-center">
               <Text className="font-bold text-5xl">{pokemon.name}</Text>
-              <Text className="text-gray-500 text-sm">{`The ${pokemon.species}`}</Text>
+              <TypeFlag type={pokemon.type} />
+              <View className="bg-gray-400 rounded-md w-60 mt-3">
+                <Text>{"Random voice"}</Text>
+              </View>
             </View>
           </View>
 
-          <View className="bg-gray-400 rounded-md w-60 mt-3">
-            <Text>{"Random voice"}</Text>
-          </View>
-          <View className="flex justify-center items-center pt-5">
+          <View className="flex justify-center pt-5">
             <Text>{pokemon.description}</Text>
           </View>
-          <Text className="pt-6">{`Found by: ${pokemon.foundBy}`}</Text>
+
+          <View className="flex flex-col pl-2 pt-5 gap-y-3">
+            <InfoRow
+              icon={<FontAwesome5 name="cat" size={24} color="black" />}
+              label="Species"
+              value={pokemon.species}
+            />
+
+            <InfoRow
+              icon={
+                <FontAwesome5 name="weight-hanging" size={24} color="black" />
+              }
+              label="Weight"
+              value={`${pokemon.weight} Kg`}
+            />
+
+            <InfoRow
+              icon={<Entypo name="ruler" size={24} color="black" />}
+              label="Height"
+              value={`${pokemon.height} cm`}
+            />
+
+            <InfoRow
+              icon={<MaterialIcons name="speed" size={24} color="black" />}
+              label="Speed"
+              value={pokemon.speed.toString()}
+            />
+
+            <InfoRow
+              icon={<Entypo name="heart-outlined" size={24} color="black" />}
+              label="HP"
+              value={pokemon.hp.toString()}
+            />
+
+            <InfoRow
+              icon={
+                <MaterialCommunityIcons name="sword" size={24} color="black" />
+              }
+              label="Attack"
+              value={pokemon.attack.toString()}
+            />
+
+            <InfoRow
+              icon={<Feather name="shield" size={24} color="black" />}
+              label="Defense"
+              value={pokemon.defense.toString()}
+            />
+
+            <InfoRow
+              icon={
+                <SimpleLineIcons name="magic-wand" size={24} color="black" />
+              }
+              label="Special Attack"
+              value={pokemon.speAttack.toString()}
+            />
+
+            <InfoRow
+              icon={
+                <MaterialCommunityIcons
+                  name="shield-sun-outline"
+                  size={24}
+                  color="black"
+                />
+              }
+              label="Special Defense"
+              value={pokemon.speDefense.toString()}
+            />
+          </View>
 
           <View className="flex justify-center items-center pl-20">
             <BarChart

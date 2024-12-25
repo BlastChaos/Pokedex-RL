@@ -12,7 +12,7 @@ export const TypeFlag: React.FC<Props> = (props) => {
       style={{
         backgroundColor: pokemonTypeColor[props.type],
       }}
-      className="rounded-lg w-24 pl-2 h-6 flex flex-row items-center gap-x-2"
+      className="rounded-lg w-24 pl-2 h-7 flex flex-row items-center gap-x-2"
     >
       <IconType type={props.type} />
       <Text>{Type[props.type]}</Text>
