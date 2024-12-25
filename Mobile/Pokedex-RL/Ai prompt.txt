@@ -28,7 +28,7 @@ You must return a JSON. the result must be like this:
     speDefense: number
     speed: number
     description: number
-    type: Type
+    type: Type[]
 }
 
 here's the value for Type
@@ -52,3 +52,6 @@ Type {
   Steel = 16,
   Fairy = 17,
 }
+
+the weight is in kg
+the height is in cm
