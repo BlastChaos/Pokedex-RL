@@ -1,7 +1,13 @@
 import { Pokemon } from "@/api/Model/Pokemon";
-import { Image, Text, View, ScrollView } from "react-native";
+import {
+  Image,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import React from "react";
-import { BarChart, barDataItem } from "react-native-gifted-charts";
 import { TypeFlag } from "../TypeFlag/TypeFlag";
 import { InfoRow } from "../InfoRow/InfoRow";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -11,6 +17,8 @@ import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
 import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
+import { useRouter } from "expo-router";
+import { deletePokemon } from "@/api/Service/deletePokemons";
 type Props = {
   pokemonId: string;
 };
@@ -21,6 +29,8 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
   // if (!pokemon) {
   //   return <div> pokemon not found!</div>;
   // }
+
+  const route = useRouter();
 
   const pokemon: Pokemon = {
     id: "1",
@@ -72,6 +82,31 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
       value: pokemon.speed,
     },
   ];
+
+  const onDelete = () => {
+    Alert.alert(
+      `Delete ${pokemon.name}`,
+      `You are about to delete ${pokemon.name}. Are you sure?`,
+      [
+        {
+          isPreferred: true,
+          text: "No",
+          onPress: () => {},
+        },
+
+        {
+          text: "Yes",
+          onPress: () => {
+            deletePokemon(pokemon.id);
+            route.push("/pokedex");
+          },
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
 
   return (
     <ScrollView>
@@ -186,9 +221,15 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
             />
           </View>
 
-          <View className="flex justify-center items-center">
-            <Text>{"ok"}</Text>
-          </View>
+          <TouchableOpacity
+            className="flex mt-5 items-center"
+            onPress={onDelete}
+          >
+            <Image
+              source={require("@/assets/images/button-delete.png")}
+              className="w-96 h-20"
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
