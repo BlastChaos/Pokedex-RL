@@ -32,7 +32,7 @@ export class Pokemon {
   speAttack!: number;
   speDefense!: number;
   speed!: number;
-  type!: Type;
+  type!: Type[];
   description!: string;
   // number!: number;
   imageUrl!: string;

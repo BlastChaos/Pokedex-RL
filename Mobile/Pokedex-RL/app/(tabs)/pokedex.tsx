@@ -4,23 +4,44 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { PokemonBox } from "@/Component/PokemonBox/PokemonBox";
 import { useRouter } from "expo-router";
+import { Pokemon } from "@/api/Model/Pokemon";
 
 export default function TabTwoScreen() {
   const [search, setSearch] = useState<string>();
-  const pokemons = [
+  const pokemons: Pokemon[] = [
     {
       id: "1",
-      type: 1,
+      type: [4, 8],
       name: "Bulbasaur",
-      number: 1,
+      attack: 49,
+      defense: 49,
+      description: "",
+      height: 7,
+      hp: 45,
+      speAttack: 65,
+      species: "Seed Pokémon",
+      speDefense: 65,
+      speed: 45,
+      weight: 69,
+      voiceUrl: "",
       imageUrl:
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
     },
     {
       id: "2",
-      type: 2,
+      type: [10, 3],
       name: "Ivysaur",
-      number: 2,
+      attack: 49,
+      defense: 49,
+      description: "",
+      height: 7,
+      hp: 45,
+      speAttack: 65,
+      species: "Seed Pokémon",
+      speDefense: 65,
+      speed: 45,
+      weight: 69,
+      voiceUrl: "",
       imageUrl:
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
     },

@@ -46,7 +46,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
     // foundBy: "Professor Oak",
     description:
       "For some time after its birth, it grows by gaining nourishment from the seed on its back.",
-    type: 1,
+    type: [1, 5],
     name: "Bulbasaur",
     // number: 1,
     voiceUrl: "",
@@ -120,7 +120,11 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
           <View className={"pt-8"}>
             <View className="flex flex-col gap-y-2 justify-center">
               <Text className="font-bold text-5xl">{pokemon.name}</Text>
-              <TypeFlag type={pokemon.type} />
+              <View className="flex flex-row gap-x-2">
+                {pokemon.type.map((type) => (
+                  <TypeFlag type={type} />
+                ))}
+              </View>
               <View className="bg-gray-400 rounded-md w-60 mt-3">
                 <Text>{"Random voice"}</Text>
               </View>
