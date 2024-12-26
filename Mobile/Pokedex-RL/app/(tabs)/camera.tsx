@@ -10,7 +10,7 @@ import { ThemedText } from "@/Component/ThemedText";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useRef, useState } from "react";
-import { createPokemon } from "@/api/Service/createPokemon";
+import { createPokemon } from "@/api/Service/Pokemon/createPokemon";
 import { useRouter } from "expo-router";
 
 export default function Camera() {
@@ -38,18 +38,22 @@ export default function Camera() {
     if (!isCameraReady) {
       return;
     }
-    const cameraCapturedPicture = await ref.current?.takePictureAsync();
-    await ref.current?.pausePreview();
-    console.log(cameraCapturedPicture);
+
     try {
-      const pokemonId = await createPokemon({
-        photo: cameraCapturedPicture?.uri || "",
+      const cameraCapturedPicture = await ref.current?.takePictureAsync({
+        base64: true,
       });
+      await ref.current?.pausePreview();
+      const pokemonId = await createPokemon(
+        cameraCapturedPicture?.base64 ?? ""
+      );
 
       router.push({
         pathname: "/pokemon/[pokemonId]",
         params: { pokemonId },
       });
+    } catch (error) {
+      console.error(error);
     } finally {
       await ref.current?.resumePreview();
     }

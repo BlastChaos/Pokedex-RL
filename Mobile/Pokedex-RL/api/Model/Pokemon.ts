@@ -23,7 +23,7 @@ export class Pokemon {
   id!: string;
   species!: string;
   name!: string;
-  foundBy!: string;
+  // foundBy!: string;
   weight!: number;
   height!: number;
   hp!: number;
@@ -34,7 +34,7 @@ export class Pokemon {
   speed!: number;
   type!: Type;
   description!: string;
-  number!: number;
+  // number!: number;
   imageUrl!: string;
   voiceUrl!: string;
 }

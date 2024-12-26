@@ -13,7 +13,7 @@ Your goal is to:
 4. Give me his stats (weight, height, speed, HP, attack, defense, special attack, special defense, type).
 
 The description, the species, and the stats must be realistic, like if I was in a Pokémon game.
-
+the description must have some lore related to the photo. For example, for gyarados, it says that he can destroy cities.
 
 You must return a JSON. the result must be like this:
 {

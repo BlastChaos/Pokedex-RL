@@ -18,7 +18,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
 import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
 import { useRouter } from "expo-router";
-import { deletePokemon } from "@/api/Service/deletePokemons";
+import { deletePokemon } from "@/api/Service/Pokemon/deletePokemons";
 type Props = {
   pokemonId: string;
 };
@@ -43,12 +43,12 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
     species: "Seed Pokémon",
     speed: 45,
     weight: 69,
-    foundBy: "Professor Oak",
+    // foundBy: "Professor Oak",
     description:
       "For some time after its birth, it grows by gaining nourishment from the seed on its back.",
     type: 1,
     name: "Bulbasaur",
-    number: 1,
+    // number: 1,
     voiceUrl: "",
     imageUrl:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
