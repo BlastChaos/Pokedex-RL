@@ -18,11 +18,11 @@ type PokemonLLM = Pick<
   | "description"
   | "type"
 >;
+const genAI = new GoogleGenerativeAI(config.llmApiKey);
 
 export const getPokemonInfoFromLLM = async (
   base64Image: string
 ): Promise<PokemonLLM> => {
-  const genAI = new GoogleGenerativeAI(config.llmApiKey);
   const model = genAI.getGenerativeModel({
     model: "gemini-2.0-flash-exp",
     generationConfig: {

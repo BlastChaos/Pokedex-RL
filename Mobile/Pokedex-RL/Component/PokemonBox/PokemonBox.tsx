@@ -36,7 +36,7 @@ export const PokemonBox: React.FC<Props> = (props) => {
 
           <View className="flex flex-row gap-x-2">
             {pokemon.type.map((type) => (
-              <TypeFlag type={type} />
+              <TypeFlag type={type} key={type} />
             ))}
           </View>
         </View>

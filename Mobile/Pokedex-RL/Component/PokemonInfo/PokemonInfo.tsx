@@ -122,7 +122,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
               <Text className="font-bold text-5xl">{pokemon.name}</Text>
               <View className="flex flex-row gap-x-2">
                 {pokemon.type.map((type) => (
-                  <TypeFlag type={type} />
+                  <TypeFlag type={type} key={type} />
                 ))}
               </View>
               <View className="bg-gray-400 rounded-md w-60 mt-3">
