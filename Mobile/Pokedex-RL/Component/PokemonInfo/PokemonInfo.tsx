@@ -38,8 +38,8 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
     defense: 49,
     height: 7,
     hp: 45,
-    speAttack: 65,
-    speDefense: 65,
+    specialAttack: 65,
+    specialDefense: 65,
     species: "Seed Pokémon",
     speed: 45,
     weight: 69,
@@ -71,11 +71,11 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
     },
     {
       label: "Spe. Atk",
-      value: pokemon.speAttack,
+      value: pokemon.specialAttack,
     },
     {
       label: "Spe. Def",
-      value: pokemon.speDefense,
+      value: pokemon.specialDefense,
     },
     {
       label: "Speed",
@@ -187,7 +187,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
                 <SimpleLineIcons name="magic-wand" size={24} color="black" />
               }
               label="Special Attack"
-              value={pokemon.speAttack.toString()}
+              value={pokemon.specialAttack.toString()}
             />
 
             <InfoRow
@@ -199,7 +199,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
                 />
               }
               label="Special Defense"
-              value={pokemon.speDefense.toString()}
+              value={pokemon.specialDefense.toString()}
             />
           </View>
 
