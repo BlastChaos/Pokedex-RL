@@ -19,7 +19,7 @@ import Feather from "@expo/vector-icons/Feather";
 import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
 import { useRouter } from "expo-router";
 import { deletePokemon } from "@/api/Service/Pokemon/deletePokemons";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPokemon, pokemonKeys } from "@/api/Service/Pokemon/getPokemon";
 type Props = {
   pokemonId: string;
@@ -50,6 +50,13 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
     } as Pokemon,
     queryFn: () => getPokemon(props.pokemonId),
+  });
+
+  const { mutate: deletePokemonEntry } = useMutation({
+    mutationFn: async () => await deletePokemon(props.pokemonId),
+    onSuccess: () => {
+      route.push("/pokedex");
+    },
   });
 
   const route = useRouter();
@@ -107,10 +114,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
 
         {
           text: "Yes",
-          onPress: () => {
-            deletePokemon(pokemon.id);
-            route.push("/pokedex");
-          },
+          onPress: () => deletePokemonEntry(),
         },
       ],
       {
