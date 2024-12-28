@@ -31,6 +31,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     favicon: "./assets/images/favicon.png",
   },
   plugins: [
+    ["@morrowdigital/watermelondb-expo-plugin"],
+    [
+      "expo-build-properties",
+      {
+        android: {
+          kotlinVersion: "1.6.10",
+          packagingOptions: {
+            pickFirst: ["**/libc++_shared.so"],
+          },
+        },
+      },
+    ],
     "expo-router",
     [
       "expo-dev-launcher",
