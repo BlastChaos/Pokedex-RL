@@ -35,7 +35,7 @@ export const getPokemonInfoFromLLM = async (
     {
       inlineData: {
         data: base64Image,
-        mimeType: "image/png",
+        mimeType: "image/jpg",
       },
     },
   ]);
