@@ -9,11 +9,26 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 
 import { Header } from "@/Component/Header/Header";
 import "../global.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useReactQueryDevTools } from "@dev-plugins/react-query";
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      networkMode: "offlineFirst",
+    },
+    mutations: {
+      networkMode: "offlineFirst",
+    },
+  },
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  useReactQueryDevTools(queryClient);
+
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -30,16 +45,18 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack
-        screenOptions={{
-          header: () => <Header />,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="+not-found" />
-        <Stack.Screen name="pokemon/[pokemonId]" />
-      </Stack>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={DefaultTheme}>
+        <Stack
+          screenOptions={{
+            header: () => <Header />,
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="+not-found" />
+          <Stack.Screen name="pokemon/[pokemonId]" />
+        </Stack>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
