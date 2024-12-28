@@ -15,11 +15,15 @@ type Filter = {
 
 export const pokemonKeys = {
   pokemon: ["pokemon"],
-  getPokemons: (filter: Filter) => [...pokemonKeys.pokemon, filter],
+  getPokemons: (filter: Filter) => [
+    ...pokemonKeys.pokemon,
+    "infiniteQuery",
+    filter,
+  ],
   getPokemon: (id: string) => [...pokemonKeys.pokemon, id],
 };
 
-export async function getPokemons(filter: Filter) {
+export async function getPokemons(filter: Filter): Promise<Pokemon[]> {
   const query: Clause[] = [];
   if (filter.search) {
     query.push(
