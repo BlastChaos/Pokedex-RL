@@ -14,8 +14,9 @@ type Filter = {
 };
 
 export const pokemonKeys = {
-  getPokemons: (filter: Filter) => ["pokemons", filter],
-  getPokemon: (id: string) => ["pokemon", id],
+  pokemon: ["pokemon"],
+  getPokemons: (filter: Filter) => [...pokemonKeys.pokemon, filter],
+  getPokemon: (id: string) => [...pokemonKeys.pokemon, id],
 };
 
 export async function getPokemons(filter: Filter) {
