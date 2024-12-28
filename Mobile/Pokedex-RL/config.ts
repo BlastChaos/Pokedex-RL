@@ -19,13 +19,13 @@ You must return a JSON. the result must be like this:
 {
     species: string
     name: string
-    weight: string
-    height: string
+    weight: number
+    height: number
     hp: number
     attack: number
     defense: number
-    speAttack: number
-    speDefense: number
+    specialAttack: number
+    specialDefense: number
     speed: number
     description: number
     type: Type[]
@@ -55,6 +55,7 @@ Type {
 
 the weight is in kg
 the height is in cm
+For the type, you must give me the number and not the string. For example, if the type is "Fire", you must return 1.
 `;
 
 export const config = {
