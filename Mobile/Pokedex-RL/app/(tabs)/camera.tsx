@@ -12,10 +12,21 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useRef, useState } from "react";
 import { createPokemon } from "@/api/Service/Pokemon/createPokemon";
 import { useRouter } from "expo-router";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Camera() {
   const ref = useRef<CameraView>(null);
   const router = useRouter();
+
+  const { mutate: createNewPokemon } = useMutation({
+    mutationFn: createPokemon,
+    onSuccess: (pokemonId) => {
+      router.push({
+        pathname: "/pokemon/[pokemonId]",
+        params: { pokemonId },
+      });
+    },
+  });
 
   const [isCameraReady, setIsCameraReady] = useState(false);
 
@@ -44,14 +55,7 @@ export default function Camera() {
         base64: true,
       });
       await ref.current?.pausePreview();
-      const pokemonId = await createPokemon(
-        cameraCapturedPicture?.base64 ?? ""
-      );
-
-      router.push({
-        pathname: "/pokemon/[pokemonId]",
-        params: { pokemonId },
-      });
+      createNewPokemon(cameraCapturedPicture?.base64 ?? "");
     } catch (error) {
       console.error(error);
     } finally {

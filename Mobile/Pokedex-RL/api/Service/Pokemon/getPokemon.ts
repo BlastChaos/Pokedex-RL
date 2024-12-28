@@ -52,10 +52,6 @@ export async function getPokemons(filter: Filter) {
   return pokemons;
 }
 
-export async function getPokemon(id: string) {
-  const pokemon = await database.collections
-    .get<Pokemon>(Pokemon.table)
-    .find(id);
-
-  return pokemon;
+export async function getPokemon(id: string): Promise<Pokemon> {
+  return await database.collections.get<Pokemon>(Pokemon.table).find(id);
 }
