@@ -53,8 +53,10 @@ export default function Camera() {
     try {
       const cameraCapturedPicture = await ref.current?.takePictureAsync({
         base64: true,
+        quality: 0.5,
       });
       await ref.current?.pausePreview();
+      
       createNewPokemon(cameraCapturedPicture?.base64 ?? "");
     } catch (error) {
       console.error(error);
