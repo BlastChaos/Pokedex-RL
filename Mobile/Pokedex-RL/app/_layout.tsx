@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { StatusBar } from "expo-status-bar";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -43,6 +44,7 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <StatusBar style="dark" />
       <ThemeProvider value={DefaultTheme}>
         <Stack
           screenOptions={{
