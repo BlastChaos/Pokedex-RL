@@ -8,6 +8,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: "portrait",
   icon: "./logo.ico",
   scheme: "myapp",
+  androidStatusBar: {
+    backgroundColor: "#D12435",
+    translucent: false,
+  },
   userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/images/splash.png",
