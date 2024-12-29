@@ -28,6 +28,13 @@ export const createPokemon = async (base64Image: string): Promise<string> => {
       });
   });
 
+  queryClient.setQueriesData(
+    {
+      queryKey: pokemonKeys.getPokemon(newPokemon.id),
+    },
+    newPokemon
+  );
+
   queryClient.invalidateQueries({
     queryKey: pokemonKeys.pokemon,
   });
