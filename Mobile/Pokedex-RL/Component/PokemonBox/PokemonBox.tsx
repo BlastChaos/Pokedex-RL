@@ -69,7 +69,7 @@ export const PokemonBox: React.FC<Props> = (props) => {
           <Image
             className="w-36 ml-5 h-28"
             source={{
-              uri: pokemon.imageUrl,
+              uri: `data:image/jpg;base64,${pokemon.imageUrl}`,
             }}
           />
         </View>

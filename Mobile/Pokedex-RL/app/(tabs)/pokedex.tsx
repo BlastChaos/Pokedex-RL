@@ -1,51 +1,42 @@
-import { View, TextInput, FlatList } from "react-native";
-
+import {
+  View,
+  TextInput,
+  FlatList,
+  ActivityIndicator,
+  Image,
+  Text,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { PokemonBox } from "@/Component/PokemonBox/PokemonBox";
 import { useRouter } from "expo-router";
-import { Pokemon } from "@/api/Model/Pokemon";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import { getPokemons, pokemonKeys } from "@/api/Service/Pokemon/getPokemon";
+import ListEmpty from "@/assets/images/list-empty.svg";
 
 export default function TabTwoScreen() {
   const [search, setSearch] = useState<string>();
-  const pokemons: Pokemon[] = [
-    {
-      id: "1",
-      type: [4, 8],
-      name: "Bulbasaur",
-      attack: 49,
-      defense: 49,
-      description: "",
-      height: 7,
-      hp: 45,
-      specialAttack: 65,
-      species: "Seed Pokémon",
-      specialDefense: 65,
-      speed: 45,
-      weight: 69,
-      voiceUrl: "",
-      imageUrl:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+
+  const {
+    data: pokemons = [],
+    fetchNextPage,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: pokemonKeys.getPokemons({
+      search,
+    }),
+    placeholderData: keepPreviousData,
+    queryFn: ({ pageParam = 0 }) =>
+      getPokemons({ search, skip: pageParam, take: 10 }),
+
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length === 10 ? pages.length * 10 : undefined;
     },
-    {
-      id: "2",
-      type: [10, 3],
-      name: "Ivysaur",
-      attack: 49,
-      defense: 49,
-      description: "",
-      height: 7,
-      hp: 45,
-      specialAttack: 65,
-      species: "Seed Pokémon",
-      specialDefense: 65,
-      speed: 45,
-      weight: 69,
-      voiceUrl: "",
-      imageUrl:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-    },
-  ];
+    initialPageParam: 0,
+    select: (data) => data.pages.flatMap((page) => page),
+  });
 
   const router = useRouter();
 
@@ -62,6 +53,16 @@ export default function TabTwoScreen() {
 
       <FlatList
         data={pokemons}
+        ListEmptyComponent={
+          isLoading ? (
+            <ActivityIndicator size={"large"} />
+          ) : (
+            <View className="pt-16 items-center gap-y-4">
+              <ListEmpty width={100} height={100} />
+              <Text>No Pokemon Found</Text>
+            </View>
+          )
+        }
         renderItem={({ item }) => (
           <View className="pb-6">
             <PokemonBox
@@ -76,6 +77,13 @@ export default function TabTwoScreen() {
           </View>
         )}
         keyExtractor={(item) => item.id}
+        onEndReached={() => {
+          if (hasNextPage) {
+            fetchNextPage();
+          }
+        }}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
       />
     </View>
   );
