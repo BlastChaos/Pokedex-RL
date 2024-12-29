@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import { TypeFlag } from "../TypeFlag/TypeFlag";
@@ -28,27 +29,6 @@ type Props = {
 export const PokemonInfo: React.FC<Props> = (props: Props) => {
   const { data: pokemon, isLoading } = useQuery({
     queryKey: pokemonKeys.getPokemon(props.pokemonId),
-    initialData: {
-      id: "1",
-      attack: 49,
-      defense: 49,
-      height: 7,
-      hp: 45,
-      specialAttack: 65,
-      specialDefense: 65,
-      species: "Seed Pokémon",
-      speed: 45,
-      weight: 69,
-      // foundBy: "Professor Oak",
-      description:
-        "For some time after its birth, it grows by gaining nourishment from the seed on its back.",
-      type: [1, 5],
-      name: "Bulbasaur",
-      // number: 1,
-      voiceUrl: "",
-      imageUrl:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-    } as Pokemon,
     queryFn: () => getPokemon(props.pokemonId),
   });
 
@@ -62,7 +42,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
   const route = useRouter();
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator className="pt-24" size="large" />;
   }
 
   if (!pokemon) {
