@@ -27,6 +27,9 @@ export const createPokemon = async (base64Image: string): Promise<string> => {
         pokemon.voiceUrl = "";
       });
   });
+  await queryClient.invalidateQueries({
+    queryKey: pokemonKeys.pokemon,
+  });
 
   queryClient.setQueriesData(
     {
@@ -34,10 +37,6 @@ export const createPokemon = async (base64Image: string): Promise<string> => {
     },
     newPokemon
   );
-
-  queryClient.invalidateQueries({
-    queryKey: pokemonKeys.pokemon,
-  });
 
   return newPokemon.id;
 };
