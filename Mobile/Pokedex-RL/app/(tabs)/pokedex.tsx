@@ -14,9 +14,12 @@ import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { getPokemons, pokemonKeys } from "@/api/Service/Pokemon/getPokemon";
 import ListEmpty from "@/assets/images/list-empty.svg";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export default function TabTwoScreen() {
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>("");
+
+  const value = useDebounce<string>(search);
 
   const {
     data: pokemons = [],
@@ -26,11 +29,11 @@ export default function TabTwoScreen() {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: pokemonKeys.getPokemons({
-      search,
+      search: value,
     }),
     placeholderData: keepPreviousData,
     queryFn: ({ pageParam = 0 }) =>
-      getPokemons({ search, skip: pageParam, take: 6 }),
+      getPokemons({ search: value, skip: pageParam, take: 6 }),
 
     getNextPageParam: (lastPage, pages) => {
       return lastPage.length === 10 ? pages.length * 10 : undefined;
@@ -52,6 +55,7 @@ export default function TabTwoScreen() {
           <TextInput
             onChangeText={setSearch}
             value={search}
+            className="flex-1"
             placeholder="Search your Pokemon"
           />
         </View>

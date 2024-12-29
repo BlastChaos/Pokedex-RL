@@ -45,12 +45,7 @@ export async function getPokemons(filter: Filter): Promise<Pokemon[]> {
     .fetch();
 
   for (const pokemon of pokemons) {
-    queryClient.setQueriesData(
-      {
-        queryKey: pokemonKeys.getPokemon(pokemon.id),
-      },
-      pokemon
-    );
+    queryClient.setQueryData(pokemonKeys.getPokemon(pokemon.id), pokemon);
   }
 
   return pokemons;

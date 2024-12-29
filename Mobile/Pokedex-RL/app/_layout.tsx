@@ -15,10 +15,7 @@ import { useReactQueryDevTools } from "@dev-plugins/react-query";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      networkMode: "offlineFirst",
-    },
-    mutations: {
-      networkMode: "offlineFirst",
+      staleTime: 5 * (60 * 1000), // 5 mins
     },
   },
 });
