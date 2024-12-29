@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { getPokemons, pokemonKeys } from "@/api/Service/Pokemon/getPokemon";
 import ListEmpty from "@/assets/images/list-empty.svg";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabTwoScreen() {
   const [search, setSearch] = useState<string>();
@@ -29,7 +30,7 @@ export default function TabTwoScreen() {
     }),
     placeholderData: keepPreviousData,
     queryFn: ({ pageParam = 0 }) =>
-      getPokemons({ search, skip: pageParam, take: 10 }),
+      getPokemons({ search, skip: pageParam, take: 6 }),
 
     getNextPageParam: (lastPage, pages) => {
       return lastPage.length === 10 ? pages.length * 10 : undefined;
@@ -41,50 +42,58 @@ export default function TabTwoScreen() {
   const router = useRouter();
 
   return (
-    <View className="pt-24 flex flex-col items-center gap-y-4">
-      <View className="bg-white w-108 h-14 rounded-lg flex flex-row items-center px-2 gap-x-1">
-        <MaterialIcons name="search" size={27} />
-        <TextInput
-          onChangeText={setSearch}
-          value={search}
-          placeholder="Search your Pokemon"
-        />
-      </View>
+    <SafeAreaProvider>
+      <SafeAreaView
+        className="flex-1 pt-24 flex flex-col items-center gap-y-4"
+        edges={["top", "bottom"]}
+      >
+        <View className="bg-white w-108 h-14 rounded-lg flex flex-row items-center px-2 gap-x-1">
+          <MaterialIcons name="search" size={27} />
+          <TextInput
+            onChangeText={setSearch}
+            value={search}
+            placeholder="Search your Pokemon"
+          />
+        </View>
 
-      <FlatList
-        data={pokemons}
-        ListEmptyComponent={
-          isLoading ? (
-            <ActivityIndicator size={"large"} />
-          ) : (
-            <View className="pt-16 items-center gap-y-4">
-              <ListEmpty width={100} height={100} />
-              <Text>No Pokemon Found</Text>
-            </View>
-          )
-        }
-        renderItem={({ item }) => (
-          <View className="pb-6">
-            <PokemonBox
-              pokemon={item}
-              onPress={() =>
-                router.push({
-                  pathname: "/pokemon/[pokemonId]",
-                  params: { pokemonId: item.id },
-                })
-              }
-            />
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-        onEndReached={() => {
-          if (hasNextPage) {
-            fetchNextPage();
+        <FlatList
+          className="h-max"
+          data={pokemons}
+          ListEmptyComponent={
+            isLoading ? (
+              <ActivityIndicator size={"large"} />
+            ) : (
+              <View className="pt-16 items-center gap-y-4">
+                <ListEmpty width={100} height={100} />
+                <Text>No Pokemon Found</Text>
+              </View>
+            )
           }
-        }}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
-      />
-    </View>
+          renderItem={({ item }) => (
+            <View className="pb-6">
+              <PokemonBox
+                pokemon={item}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pokemon/[pokemonId]",
+                    params: { pokemonId: item.id },
+                  })
+                }
+              />
+            </View>
+          )}
+          keyExtractor={(item) => item.id}
+          onEndReached={() => {
+            if (hasNextPage) {
+              fetchNextPage();
+            }
+          }}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            isFetchingNextPage ? <ActivityIndicator /> : null
+          }
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
