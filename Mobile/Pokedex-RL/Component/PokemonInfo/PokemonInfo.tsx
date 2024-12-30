@@ -108,7 +108,7 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
       <View className="flex flex-col">
         <Image
           source={{
-            uri: `data:image/jpg;base64,${pokemon.imageUrl}`,
+            uri: pokemon.imageUrl,
           }}
           className="h-80 w-screen"
         />

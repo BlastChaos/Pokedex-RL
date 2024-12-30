@@ -13,18 +13,23 @@ import { useRef, useState } from "react";
 import { createPokemon } from "@/api/Service/Pokemon/createPokemon";
 import { useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
+import { TextWave } from "@/Component/TextWave/TextWave";
 
 export default function Camera() {
   const ref = useRef<CameraView>(null);
   const router = useRouter();
 
-  const { mutate: createNewPokemon } = useMutation({
+  const { mutate: createNewPokemon, isPending } = useMutation({
     mutationFn: createPokemon,
     onSuccess: (pokemonId) => {
+      ref.current?.resumePreview();
       router.push({
         pathname: "/pokemon/[pokemonId]",
         params: { pokemonId },
       });
+    },
+    onError: () => {
+      ref.current?.resumePreview();
     },
   });
 
@@ -50,19 +55,15 @@ export default function Camera() {
       return;
     }
 
-    try {
-      const cameraCapturedPicture = await ref.current?.takePictureAsync({
-        base64: true,
-        quality: 0.5,
-      });
-      await ref.current?.pausePreview();
-      
-      createNewPokemon(cameraCapturedPicture?.base64 ?? "");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      await ref.current?.resumePreview();
-    }
+    const cameraCapturedPicture = await ref.current?.takePictureAsync({
+      base64: true,
+      quality: 0.5,
+    });
+    createNewPokemon({
+      base64Image: cameraCapturedPicture?.base64 ?? "",
+      uri: cameraCapturedPicture?.uri ?? "",
+    });
+    await ref.current?.pausePreview();
   };
 
   return (
@@ -97,9 +98,17 @@ export default function Camera() {
               {"Capture a photo of anything"}
             </Text>
           </View>
-          <TouchableOpacity onPress={onTakePhoto}>
-            <Text className="text-white  text-5xl">{"Take a shoot!"}</Text>
-          </TouchableOpacity>
+          {!isPending && (
+            <TouchableOpacity onPress={onTakePhoto}>
+              <Text className="text-white  text-5xl">{"Take a shoot!"}</Text>
+            </TouchableOpacity>
+          )}
+          {isPending && (
+            <TextWave
+              text={"Getting pokemon info"}
+              className="text-white text-5xl"
+            />
+          )}
         </ImageBackground>
       </SafeAreaView>
     </SafeAreaProvider>
