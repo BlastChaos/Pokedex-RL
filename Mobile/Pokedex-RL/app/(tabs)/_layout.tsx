@@ -1,4 +1,3 @@
-import { Tabs } from "expo-router";
 import React from "react";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -14,26 +13,28 @@ import Svg, {
   Stop,
   SvgProps,
 } from "react-native-svg";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Camera } from "@/Component/Camera/camera";
+import { Pokedex } from "@/Component/Pokedex/pokedex";
+
+const Tab = createBottomTabNavigator();
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const camera = Camera;
 
   return (
-    <Tabs
-      screenOptions={{
-        header: () => null,
-      }}
-    >
-      <Tabs.Screen
-        name="explore"
+    <Tab.Navigator screenOptions={{ header: () => null }}>
+      <Tab.Screen
+        name="Camera"
         options={{
           title: "Camera",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="camera-alt" size={size} color={color} />
           ),
         }}
+        component={camera}
       />
-      <Tabs.Screen
+      <Tab.Screen
         name="pokedex"
         options={{
           title: "Pokedex",
@@ -41,13 +42,14 @@ export default function TabLayout() {
             <MaterialIcons name="catching-pokemon" size={size} color={color} />
           ),
         }}
+        component={Pokedex}
       />
 
-      <Tabs.Screen
-        name="camera"
+      <Tab.Screen
+        name="cameraIcon"
         options={{
           title: "",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color }) => (
             <IconSnap
               scaleX={0.6}
               scaleY={0.6}
@@ -56,8 +58,10 @@ export default function TabLayout() {
             />
           ),
         }}
+        component={camera}
       />
-      <Tabs.Screen
+      <Tab.Screen
+        component={Pokedex}
         name="leaderBoard"
         options={{
           title: "LeaderBoard",
@@ -66,7 +70,8 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Tab.Screen
+        component={Pokedex}
         name="profile"
         options={{
           title: "Profile",
@@ -75,7 +80,7 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
+    </Tab.Navigator>
   );
 }
 

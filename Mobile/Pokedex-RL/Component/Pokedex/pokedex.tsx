@@ -16,10 +16,9 @@ import ListEmpty from "@/assets/images/list-empty.svg";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useDebounce } from "@/hooks/useDebounce";
 
-
 const MAX_POKEMON = 6;
 
-export default function TabTwoScreen() {
+export const Pokedex: React.FC = () => {
   const [search, setSearch] = useState<string>("");
 
   const value = useDebounce<string>(search);
@@ -39,7 +38,9 @@ export default function TabTwoScreen() {
       getPokemons({ search: value, skip: pageParam, take: 6 }),
 
     getNextPageParam: (lastPage, pages) => {
-      return lastPage.length === MAX_POKEMON ? pages.length * MAX_POKEMON : undefined;
+      return lastPage.length === MAX_POKEMON
+        ? pages.length * MAX_POKEMON
+        : undefined;
     },
     initialPageParam: 0,
     select: (data) => data.pages.flatMap((page) => page),
@@ -103,4 +104,4 @@ export default function TabTwoScreen() {
       </SafeAreaView>
     </SafeAreaProvider>
   );
-}
+};

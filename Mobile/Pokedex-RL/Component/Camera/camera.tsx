@@ -15,7 +15,7 @@ import { useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { TextWave } from "@/Component/TextWave/TextWave";
 
-export default function Camera() {
+export const Camera: React.FC = () => {
   const ref = useRef<CameraView>(null);
   const router = useRouter();
 
@@ -113,4 +113,4 @@ export default function Camera() {
       </SafeAreaView>
     </SafeAreaProvider>
   );
-}
+};
