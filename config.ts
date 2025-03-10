@@ -61,4 +61,5 @@ For the type, you must give me the number and not the string. For example, if th
 export const config = {
   llmApiKey: process.env.EXPO_PUBLIC_LLM_API_KEY ?? "",
   llmPrompt,
+  serverPort: Number(process.env.SERVER_PORT) || 3000,
 };
