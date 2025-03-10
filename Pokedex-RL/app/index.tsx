@@ -11,7 +11,7 @@ export default function HomeScreen() {
 
   const onScanPress = () => {
     console.log("Camera pressed");
-    router.push("/camera");
+    router.push("/tabs");
   };
 
   const onLoginPress = () => {};
