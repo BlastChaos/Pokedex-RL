@@ -1,6 +1,6 @@
 import { database } from "@/api/database";
 import { Pokemon } from "@/api/Model/Pokemon";
-import { queryClient } from "@/app/_layout";
+import { queryClient } from "@/PokedexRL/apps/mobile/app/_layout";
 import { Q } from "@nozbe/watermelondb";
 import {
   Clause,

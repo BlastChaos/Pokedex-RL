@@ -1,6 +1,6 @@
 import { database } from "@/api/database";
 import { Pokemon } from "@/api/Model/Pokemon";
-import { queryClient } from "@/app/_layout";
+import { queryClient } from "@/PokedexRL/apps/mobile/app/_layout";
 import { pokemonKeys } from "./getPokemon";
 
 export async function deletePokemon(pokemonId: string) {

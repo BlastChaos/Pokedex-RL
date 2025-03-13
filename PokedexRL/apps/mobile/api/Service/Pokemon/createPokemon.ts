@@ -1,7 +1,7 @@
 import { database } from "@/api/database";
 import { getPokemonInfoFromLLM } from "../LLM/getPokemonInfoFromLLM";
 import { Pokemon } from "@/api/Model/Pokemon";
-import { queryClient } from "@/app/_layout";
+import { queryClient } from "@/PokedexRL/apps/mobile/app/_layout";
 import { pokemonKeys } from "./getPokemon";
 type Props = {
   base64Image: string;

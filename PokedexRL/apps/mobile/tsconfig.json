@@ -11,7 +11,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "app/type/expo-env.d.ts",
+    "PokedexRL/apps/mobile/app/type/expo-env.d.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
   ]
