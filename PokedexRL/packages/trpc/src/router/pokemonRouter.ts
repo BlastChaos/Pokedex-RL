@@ -1,15 +1,19 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
+import { createPokemonFromLLM } from "../service/pokemon/createPokemonFromLLM";
 
 export const pokemonRouter = router({
   create: publicProcedure
     .input(
       z.object({
-        imageBase64: z.string(),
+        base64Image: z.string(),
       })
     )
-    .mutation(() => {
-      return "nice";
+    .mutation(async (opt) => {
+      const id = await createPokemonFromLLM({
+        base64Image: opt.input.base64Image,
+      });
+      return id;
     }),
 
   get: publicProcedure
