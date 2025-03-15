@@ -2,7 +2,6 @@ import { generatePokemonFromLLM } from "./helper/generatePokemonFromLLM";
 
 type Props = {
   base64Image: string;
-  uri: string;
 };
 export const createPokemon = async (props: Props): Promise<string> => {
   const pokemonInfo = await generatePokemonFromLLM(props);

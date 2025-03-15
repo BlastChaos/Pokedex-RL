@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
-import { createPokemonFromLLM } from "../service/pokemon/createPokemonFromLLM";
+import { createPokemon } from "../service/pokemon/createPokemon";
+import { getPokemons } from "../service/pokemon/getPokemons";
+import { deletePokemon } from "../service/pokemon/deletePokemon";
 
 export const pokemonRouter = router({
   create: publicProcedure
@@ -10,7 +12,7 @@ export const pokemonRouter = router({
       })
     )
     .mutation(async (opt) => {
-      const id = await createPokemonFromLLM({
+      const id = await createPokemon({
         base64Image: opt.input.base64Image,
       });
       return id;
@@ -19,12 +21,14 @@ export const pokemonRouter = router({
   get: publicProcedure
     .input(
       z.object({
-        limit: z.number().nullish(),
-        offset: z.number().nullish(),
+        skip: z.number().nullish(),
+        take: z.number().nullish(),
+        search: z.string().nullish(),
       })
     )
-    .query(() => {
-      return [];
+    .query(async (opts) => {
+      const pokemons = await getPokemons(opts.input);
+      return pokemons;
     }),
   getById: publicProcedure
     .input(
@@ -32,8 +36,11 @@ export const pokemonRouter = router({
         id: z.string(),
       })
     )
-    .query(() => {
-      return {};
+    .query(async (opts) => {
+      const pokemons = await getPokemons({
+        ids: [opts.input.id],
+      });
+      return pokemons[0];
     }),
 
   delete: publicProcedure
@@ -42,7 +49,10 @@ export const pokemonRouter = router({
         id: z.string(),
       })
     )
-    .mutation(() => {
+    .mutation(async (opts) => {
+      await deletePokemon({
+        id: opts.input.id,
+      });
       return "deleted";
     }),
 });
