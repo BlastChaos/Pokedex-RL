@@ -7,11 +7,14 @@ import "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { AppRouter } from "@pokedex-rl/trpc";
 
 import { Header } from "@/Component/Header/Header";
 import "../global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +26,15 @@ export const queryClient = new QueryClient({
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const trpcClient = createTRPCClient<AppRouter>({
+  links: [httpBatchLink({ url: "http://localhost:2022" })],
+});
+
+export const trpc = createTRPCOptionsProxy<AppRouter>({
+  client: trpcClient,
+  queryClient,
+});
 
 export default function RootLayout() {
   useReactQueryDevTools(queryClient);
