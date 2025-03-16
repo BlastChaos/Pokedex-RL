@@ -1,31 +1,37 @@
+import { db } from "../../database/db";
+import { pokemons } from "../../database/model/pokemons";
 import { generatePokemonFromLLM } from "./helper/generatePokemonFromLLM";
 
 type Props = {
   base64Image: string;
 };
-export const createPokemon = async (props: Props): Promise<string> => {
+export const createPokemon = async (props: Props): Promise<number> => {
   const pokemonInfo = await generatePokemonFromLLM(props);
+  //TODO: CALL S3, keep image key
+  //TODO: CALL S3, keep voice key
 
-  const newPokemon = await database.write(async () => {
-    return await database.collections
-      .get<Pokemon>(Pokemon.table)
-      .create((pokemon) => {
-        pokemon.species = pokemonInfo.species;
-        pokemon.name = pokemonInfo.name;
-        pokemon.weight = pokemonInfo.weight;
-        pokemon.height = pokemonInfo.height;
-        pokemon.hp = pokemonInfo.hp;
-        pokemon.attack = pokemonInfo.attack;
-        pokemon.defense = pokemonInfo.defense;
-        pokemon.specialAttack = pokemonInfo.specialAttack;
-        pokemon.specialDefense = pokemonInfo.specialDefense;
-        pokemon.speed = pokemonInfo.speed;
-        pokemon.description = pokemonInfo.description;
-        pokemon.type = pokemonInfo.type;
-        pokemon.imageUrl = props.uri;
-        pokemon.voiceUrl = "";
-      });
-  });
+  const pokemon: { id: number }[] = await db
+    .insert(pokemons)
+    .values({
+      attack: pokemonInfo.attack,
+      createdAt: new Date(),
+      defense: pokemonInfo.defense,
+      description: pokemonInfo.description,
+      height: pokemonInfo.height,
+      hp: pokemonInfo.hp,
+      imageKey: "Null",
+      name: pokemonInfo.name,
+      specialAttack: pokemonInfo.specialAttack,
+      specialDefense: pokemonInfo.specialDefense,
+      species: pokemonInfo.species,
+      speed: pokemonInfo.speed,
+      type1: pokemonInfo.type1,
+      type2: pokemonInfo.type2,
+      updatedAt: new Date(),
+      voiceKey: "NULL",
+      weight: pokemonInfo.weight,
+    })
+    .returning({ id: pokemons.id });
 
-  return newPokemon.id;
+  return pokemon[0]?.id || 0;
 };

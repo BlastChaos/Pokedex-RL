@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { Pokemon } from "../../../model/Pokemon";
 import { config } from "../../../config";
+import { Pokemon } from "../../../database/model/pokemons";
 
 type PokemonLLM = Pick<
   Pokemon,
@@ -15,7 +15,8 @@ type PokemonLLM = Pick<
   | "specialDefense"
   | "speed"
   | "description"
-  | "type"
+  | "type1"
+  | "type2"
 >;
 const genAI = new GoogleGenerativeAI(config.llmApiKey);
 type Input = {

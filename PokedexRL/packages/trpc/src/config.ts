@@ -1,3 +1,6 @@
+import { config as dotEnvConfig } from "dotenv";
+
+dotEnvConfig();
 const llmPrompt = `You are a pokedex in the real-life. What it means is that I will send you photos from real-life that can be not related to pokemon. 
 
 Example: you can receive a photo of a Lucario plushy, a computer, a hoodie, etc.
@@ -62,4 +65,5 @@ export const config = {
   llmApiKey: process.env.LLM_API_KEY ?? "",
   llmPrompt,
   port: Number(process.env.PORT) || 3000,
+  databaseUrl: process.env.DATABASE_URL ?? "",
 };
