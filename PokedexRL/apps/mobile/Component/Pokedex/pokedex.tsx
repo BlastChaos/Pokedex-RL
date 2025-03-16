@@ -3,7 +3,6 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
-  Image,
   Text,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -11,10 +10,10 @@ import { useState } from "react";
 import { PokemonBox } from "@/Component/PokemonBox/PokemonBox";
 import { useRouter } from "expo-router";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
-import { getPokemons, pokemonKeys } from "@/api/Service/Pokemon/getPokemon";
 import ListEmpty from "@/assets/images/list-empty.svg";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useDebounce } from "@/hooks/useDebounce";
+import { trpc } from "@/app/_layout";
 
 const MAX_POKEMON = 6;
 
@@ -23,28 +22,20 @@ export const Pokedex: React.FC = () => {
 
   const value = useDebounce<string>(search);
 
-  const {
-    data: pokemons = [],
-    fetchNextPage,
-    isLoading,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: pokemonKeys.getPokemons({
-      search: value,
-    }),
-    placeholderData: keepPreviousData,
-    queryFn: ({ pageParam = 0 }) =>
-      getPokemons({ search: value, skip: pageParam, take: 6 }),
-
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.length === MAX_POKEMON
-        ? pages.length * MAX_POKEMON
-        : undefined;
-    },
-    initialPageParam: 0,
-    select: (data) => data.pages.flatMap((page) => page),
-  });
+  const { data, fetchNextPage, isLoading, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery(
+      trpc.pokemon.get.infiniteQueryOptions(
+        {
+          search: value,
+          limit: MAX_POKEMON,
+        },
+        {
+          placeholderData: keepPreviousData,
+          getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+        }
+      )
+    );
+  const pokemons = data?.pages.flatMap((pages) => pages);
 
   const router = useRouter();
 

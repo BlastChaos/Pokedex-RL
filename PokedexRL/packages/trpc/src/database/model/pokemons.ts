@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   integer,
   pgEnum,
@@ -5,6 +6,7 @@ import {
   real,
   text,
   timestamp,
+  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -34,7 +36,9 @@ const types = Object.values(type) as [string, ...string[]];
 export const typeEnum = pgEnum("type", types);
 
 export const pokemons = pgTable("pokemons", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   species: varchar().notNull(),
   name: varchar().notNull(),
   weight: real().notNull(),
@@ -54,4 +58,4 @@ export const pokemons = pgTable("pokemons", {
   updatedAt: timestamp().notNull(),
 });
 
-export type Pokemon = typeof pokemons.$inferSelect
+export type Pokemon = typeof pokemons.$inferSelect;

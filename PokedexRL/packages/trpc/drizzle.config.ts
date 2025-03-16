@@ -4,7 +4,7 @@ import { config } from "./src/config";
 
 export default defineConfig({
   out: "./drizzle",
-  schema: "./src/model",
+  schema: "./src/database/model",
   dialect: "postgresql",
   dbCredentials: {
     url: config.databaseUrl,

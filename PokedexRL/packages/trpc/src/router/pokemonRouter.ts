@@ -21,8 +21,9 @@ export const pokemonRouter = router({
   get: publicProcedure
     .input(
       z.object({
+        cursor: z.string().nullish(),
         skip: z.number().nullish(),
-        take: z.number().nullish(),
+        limit: z.number().nullish(),
         search: z.string().nullish(),
       })
     )
@@ -33,7 +34,7 @@ export const pokemonRouter = router({
   getById: publicProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
       })
     )
     .query(async (opts) => {
@@ -46,7 +47,7 @@ export const pokemonRouter = router({
   delete: publicProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
       })
     )
     .mutation(async (opts) => {

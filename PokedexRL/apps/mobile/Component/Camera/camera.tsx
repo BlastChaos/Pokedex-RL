@@ -10,28 +10,29 @@ import { ThemedText } from "@/Component/ThemedText";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useRef, useState } from "react";
-import { createPokemon } from "@/api/Service/Pokemon/createPokemon";
 import { useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { TextWave } from "@/Component/TextWave/TextWave";
+import { trpc } from "@/app/_layout";
 
 export const Camera: React.FC = () => {
   const ref = useRef<CameraView>(null);
   const router = useRouter();
 
-  const { mutate: createNewPokemon, isPending } = useMutation({
-    mutationFn: createPokemon,
-    onSuccess: (pokemonId) => {
-      ref.current?.resumePreview();
-      router.push({
-        pathname: "/pokemon/[pokemonId]",
-        params: { pokemonId },
-      });
-    },
-    onError: () => {
-      ref.current?.resumePreview();
-    },
-  });
+  const { mutate: createNewPokemon, isPending } = useMutation(
+    trpc.pokemon.create.mutationOptions({
+      onSuccess: (pokemonId) => {
+        ref.current?.resumePreview();
+        router.push({
+          pathname: "/pokemon/[pokemonId]",
+          params: { pokemonId },
+        });
+      },
+      onError: () => {
+        ref.current?.resumePreview();
+      },
+    })
+  );
 
   const [isCameraReady, setIsCameraReady] = useState(false);
 
@@ -61,7 +62,6 @@ export const Camera: React.FC = () => {
     });
     createNewPokemon({
       base64Image: cameraCapturedPicture?.base64 ?? "",
-      uri: cameraCapturedPicture?.uri ?? "",
     });
     await ref.current?.pausePreview();
   };

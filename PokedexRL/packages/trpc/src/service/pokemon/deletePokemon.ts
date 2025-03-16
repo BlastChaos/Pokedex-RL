@@ -3,7 +3,7 @@ import { db } from "../../database/db";
 import { pokemons } from "../../database/model/pokemons";
 
 type Input = {
-  id: number;
+  id: string;
 };
 export async function deletePokemon(input: Input) {
   await db.delete(pokemons).where(eq(pokemons.id, input.id));

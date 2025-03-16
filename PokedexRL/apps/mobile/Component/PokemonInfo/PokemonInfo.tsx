@@ -1,4 +1,3 @@
-import { Pokemon } from "@/api/Model/Pokemon";
 import {
   Image,
   Text,
@@ -21,16 +20,17 @@ import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
 import { useRouter } from "expo-router";
 import { deletePokemon } from "@/api/Service/Pokemon/deletePokemons";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getPokemon, pokemonKeys } from "@/api/Service/Pokemon/getPokemon";
+import { trpc } from "@/app/_layout";
 type Props = {
   pokemonId: string;
 };
 
 export const PokemonInfo: React.FC<Props> = (props: Props) => {
-  const { data: pokemon, isLoading } = useQuery({
-    queryKey: pokemonKeys.getPokemon(props.pokemonId),
-    queryFn: () => getPokemon(props.pokemonId),
-  });
+  const { data: pokemon, isLoading } = useQuery(
+    trpc.pokemon.getById.queryOptions({
+      id: props.pokemonId,
+    })
+  );
 
   const { mutate: deletePokemonEntry } = useMutation({
     mutationFn: async () => await deletePokemon(props.pokemonId),

@@ -1,10 +1,12 @@
-import { SQLWrapper } from "drizzle-orm";
+import { SQLWrapper } from "drizzle-orm/sql/sql";
 import { db } from "../../database/db";
+import { pokemons } from "../../database/model/pokemons";
+import { gt } from "drizzle-orm";
 
 type Input = {
-  ids?: number[] | null;
-  skip?: number | null;
-  take?: number | null;
+  ids?: string[] | null;
+  cursor?: string | null;
+  limit?: number | null;
   search?: string | null;
 };
 
@@ -19,10 +21,14 @@ export async function getPokemons(input?: Input) {
         conditions.push(ilike(pokemon.name, `%${input.search}%`));
       }
 
+      if (input?.cursor) {
+        conditions.push(gt(pokemon.id, input.cursor)); // Ensure gt is properly wrapped
+      }
+
       return and(...conditions);
     },
-    limit: input?.take || undefined,
-    offset: input?.skip || undefined,
+    limit: input?.limit || undefined,
+    orderBy: pokemons.id,
   });
 
   return result;

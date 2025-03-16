@@ -5,12 +5,12 @@ import { generatePokemonFromLLM } from "./helper/generatePokemonFromLLM";
 type Props = {
   base64Image: string;
 };
-export const createPokemon = async (props: Props): Promise<number> => {
+export const createPokemon = async (props: Props): Promise<string> => {
   const pokemonInfo = await generatePokemonFromLLM(props);
   //TODO: CALL S3, keep image key
   //TODO: CALL S3, keep voice key
 
-  const pokemon: { id: number }[] = await db
+  const pokemon: { id: string }[] = await db
     .insert(pokemons)
     .values({
       attack: pokemonInfo.attack,
@@ -33,5 +33,5 @@ export const createPokemon = async (props: Props): Promise<number> => {
     })
     .returning({ id: pokemons.id });
 
-  return pokemon[0]?.id || 0;
+  return pokemon[0]?.id || "";
 };
