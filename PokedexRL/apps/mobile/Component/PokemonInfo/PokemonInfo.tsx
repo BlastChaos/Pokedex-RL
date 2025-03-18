@@ -18,7 +18,6 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
 import { RadarChart, RadarData } from "@salmonco/react-native-radar-chart";
 import { useRouter } from "expo-router";
-import { deletePokemon } from "@/api/Service/Pokemon/deletePokemons";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { trpc } from "@/app/_layout";
 type Props = {
@@ -32,12 +31,13 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
     })
   );
 
-  const { mutate: deletePokemonEntry } = useMutation({
-    mutationFn: async () => await deletePokemon(props.pokemonId),
-    onSuccess: () => {
-      route.push("/pokedex");
-    },
-  });
+  const { mutate: deletePokemonEntry } = useMutation(
+    trpc.pokemon.delete.mutationOptions({
+      onSuccess: () => {
+        route.push("/pokedex");
+      },
+    })
+  );
 
   const route = useRouter();
 
@@ -94,7 +94,10 @@ export const PokemonInfo: React.FC<Props> = (props: Props) => {
 
         {
           text: "Yes",
-          onPress: () => deletePokemonEntry(),
+          onPress: () =>
+            deletePokemonEntry({
+              id: pokemon.id,
+            }),
         },
       ],
       {
