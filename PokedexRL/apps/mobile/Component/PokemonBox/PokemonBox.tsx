@@ -3,9 +3,9 @@ import { IconType } from "../IconType/IconType";
 import { TypeFlag } from "../TypeFlag/TypeFlag";
 import { LinearGradient } from "expo-linear-gradient";
 import { pokemonTypeColor } from "@/helper/pokemonTypeColor";
-import { Pokemon, Type } from "@/api/Model/Pokemon";
 import Color from "color";
-type PokemonBox = Pick<Pokemon, "type" | "name" | "imageUrl">;
+import { Pokemon } from "@pokedex-rl/trpc";
+type PokemonBox = Pick<Pokemon, "type1" | "type2" | "name" | "imageKey">;
 
 type Props = {
   pokemon: PokemonBox;
@@ -15,8 +15,8 @@ type Props = {
 export const PokemonBox: React.FC<Props> = (props) => {
   const pokemon = props.pokemon;
 
-  const firstType = pokemon.type[0];
-  const secondType = pokemon.type[1];
+  const firstType = pokemon.type1;
+  const secondType = pokemon.type2;
 
   const colorFirstType = pokemonTypeColor[firstType];
   const colorSecondType = secondType
@@ -59,19 +59,18 @@ export const PokemonBox: React.FC<Props> = (props) => {
           <Text className="font-bold text-2xl">{pokemon.name}</Text>
 
           <View className="flex flex-row gap-x-2">
-            {pokemon.type.map((type) => (
-              <TypeFlag type={type} key={type} />
-            ))}
+            <TypeFlag type={firstType} key={firstType} />
+            {secondType && <TypeFlag type={secondType} key={secondType} />}
           </View>
         </View>
 
         <View className="flex-1 rounded-r-lg items-center justify-center">
-          <Image
+          {/* <Image
             className="w-36 ml-5 h-28"
             source={{
-              uri: pokemon.imageUrl,
+              uri: pokemon.imageUrl, //TODO: FIX THIS
             }}
-          />
+          /> */}
         </View>
       </LinearGradient>
     </TouchableOpacity>
