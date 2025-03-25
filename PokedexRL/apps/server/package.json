@@ -1,8 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "type": "module",
-  "main": "index.ts",
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc",

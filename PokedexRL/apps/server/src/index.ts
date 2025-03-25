@@ -21,6 +21,7 @@ server.register(fastifyTRPCPlugin, {
 (async () => {
   try {
     await server.listen({ port: 3000 });
+    console.log("Server open on", 3000);
   } catch (err) {
     server.log.error(err);
     process.exit(1);

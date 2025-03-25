@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "exports": {
-    "./appRouter": {
-      "types": "./src/_app.ts",
-      "default": "./dist/_app.js"
-    },
-    "./context": {
-      "types": "./src/context.ts",
-      "default": "./dist/context.js"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
